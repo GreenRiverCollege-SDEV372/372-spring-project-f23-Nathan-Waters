@@ -1,0 +1,10 @@
+img{
+    width: 350px;
+}
+
+* {
+    justify-content: center;
+    text-align: center;
+    background: lightblue;
+    list-style-type: none;
+}
