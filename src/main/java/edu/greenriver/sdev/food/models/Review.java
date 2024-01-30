@@ -1,4 +1,4 @@
-package edu.greenriver.sdev.food.model;
+package edu.greenriver.sdev.food.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
