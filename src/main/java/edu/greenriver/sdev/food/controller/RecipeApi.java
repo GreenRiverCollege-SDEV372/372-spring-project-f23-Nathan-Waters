@@ -1,6 +1,7 @@
 package edu.greenriver.sdev.food.controller;
 
 import edu.greenriver.sdev.food.models.Recipe;
+import edu.greenriver.sdev.food.models.Review;
 import edu.greenriver.sdev.food.services.RecipeService;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,11 @@ public class RecipeApi {
     @PostMapping("recipes")
     public void addMovie(@RequestBody Recipe newRecipe){
         service.newRecipe(newRecipe);
+    }
+
+    @PutMapping("recipes/{id}")
+    public Recipe updateRecipe(@PathVariable int id, @RequestBody Recipe updatedRecipe){
+        return service.updateRecipe(updatedRecipe, id);
     }
 
     @DeleteMapping("recipes/{id}")

@@ -17,6 +17,7 @@ public class ReviewService {
         this.repository = repository;
     }
 
+    //get random recipe *R*
     public Review getRandomReview(){
         Random generator = new Random();
         List<Review> review = repository.findAll();
@@ -24,15 +25,18 @@ public class ReviewService {
         return review.get(index);
     }
 
+    //get all *R*
     public List<Review> all(){
         List<Review> reviews = repository.findAll();
         return Collections.unmodifiableList(reviews);//what is this exactly?
     }
 
+    //add recipe *C*
     public void newReview(Review review){
         repository.save(review);
     }
 
+    //update recipe *U*
     public Review updateReview(Review updatedReview, int id){
         Review curReview = repository.findById(id).orElseThrow();
 
@@ -43,6 +47,7 @@ public class ReviewService {
         return repository.save(curReview);
     }
 
+    //delete recipe *D*
     public void deleteReview(int id){
         repository.deleteById(id);
     }
