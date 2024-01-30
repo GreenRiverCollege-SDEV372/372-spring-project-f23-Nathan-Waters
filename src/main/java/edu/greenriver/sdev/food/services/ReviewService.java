@@ -1,9 +1,11 @@
 package edu.greenriver.sdev.food.services;
 
 import edu.greenriver.sdev.food.db.ReviewRepository;
+import edu.greenriver.sdev.food.models.Recipe;
 import edu.greenriver.sdev.food.models.Review;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -15,7 +17,6 @@ public class ReviewService {
         this.repository = repository;
     }
 
-    //get random recipe *R*
     public Review getRandomReview(){
         Random generator = new Random();
         List<Review> review = repository.findAll();
@@ -23,10 +24,26 @@ public class ReviewService {
         return review.get(index);
     }
 
-    //get all *R*
-    //add Review *C*
+    public List<Review> all(){
+        List<Review> reviews = repository.findAll();
+        return Collections.unmodifiableList(reviews);//what is this exactly?
+    }
 
-    //update Review *U*
+    public void newReview(Review review){
+        repository.save(review);
+    }
 
-    //delete Review *D*
+    public Review updateReview(Review updatedReview, int id){
+        Review curReview = repository.findById(id).orElseThrow();
+
+        curReview.setRecipeName(updatedReview.getRecipeName());
+        curReview.setStars(updatedReview.getStars());
+        curReview.setReview(updatedReview.getReview());
+
+        return repository.save(curReview);
+    }
+
+    public void deleteReview(int id){
+        repository.deleteById(id);
+    }
 }
