@@ -18,7 +18,7 @@ public class RecipeService {
     public RecipeService(RecipeRepository repository){
         this.repository = repository;
     }
-    //get random recipe *R*
+
     public Recipe getRandomRecipe(){
         Random generator = new Random();
         List<Recipe> recipe = repository.findAll();
@@ -33,8 +33,9 @@ public class RecipeService {
     }
 
     //add recipe *C*
-    public void newRecipe(Recipe recipe){
+    public Recipe addRecipe(Recipe recipe){
         repository.save(recipe);
+        return recipe;
     }
 
     //update recipe *U*
@@ -51,7 +52,16 @@ public class RecipeService {
     }
 
     //delete recipe *D*
-    public void deleteRecipe(int id){
+    public Recipe deleteRecipe(int id){
         repository.deleteById(id);
+        return null;
+    }
+
+    public boolean isValidRecipe(Recipe recipe){
+        return recipe.getName() != null && !recipe.getName().isEmpty();
+    }
+
+    public boolean isValidUpdatedRecipe(Recipe recipe){
+        return recipe.getAuthor() != null && !recipe.getAuthor().isEmpty();
     }
 }

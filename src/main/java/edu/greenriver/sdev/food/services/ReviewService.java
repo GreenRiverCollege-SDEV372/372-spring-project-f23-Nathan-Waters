@@ -32,8 +32,9 @@ public class ReviewService {
     }
 
     //add recipe *C*
-    public void newReview(Review review){
+    public Review newReview(Review review){
         repository.save(review);
+        return review;
     }
 
     //update recipe *U*
@@ -48,7 +49,12 @@ public class ReviewService {
     }
 
     //delete recipe *D*
-    public void deleteReview(int id){
+    public Review deleteReview(int id){
         repository.deleteById(id);
+        return null;
+    }
+
+    public boolean isValidReview(Review review){
+        return review.getStars() >= 0 && review.getStars() <= 5;
     }
 }
