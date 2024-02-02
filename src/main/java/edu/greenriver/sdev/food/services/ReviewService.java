@@ -1,7 +1,6 @@
 package edu.greenriver.sdev.food.services;
 
 import edu.greenriver.sdev.food.db.ReviewRepository;
-import edu.greenriver.sdev.food.models.Recipe;
 import edu.greenriver.sdev.food.models.Review;
 import org.springframework.stereotype.Service;
 
@@ -9,15 +8,31 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+// Author: Nathan Waters
+// Date: 2/2/2024
+// version: 1
+
+/**
+ * Service class for managing review-related operations.
+ */
 @Service
 public class ReviewService {
     private ReviewRepository repository;
 
+    /**
+     * Constructor for ReviewService.
+     *
+     * @param repository The repository for accessing review data.
+     */
     public ReviewService(ReviewRepository repository){
         this.repository = repository;
     }
 
-    //get random recipe *R*
+    /**
+     * Gets a random review from the repository.
+     *
+     * @return A randomly selected review.
+     */
     public Review getRandomReview(){
         Random generator = new Random();
         List<Review> review = repository.findAll();
@@ -25,19 +40,34 @@ public class ReviewService {
         return review.get(index);
     }
 
-    //get all *R*
+    /**
+     * Retrieves all reviews from the repository.
+     *
+     * @return An unmodifiable list of all reviews.
+     */
     public List<Review> all(){
         List<Review> reviews = repository.findAll();
         return Collections.unmodifiableList(reviews);//what is this exactly?
     }
 
-    //add recipe *C*
+    /**
+     * Adds a new review to the repository.
+     *
+     * @param review The review to be added.
+     * @return The added review.
+     */
     public Review newReview(Review review){
         repository.save(review);
         return review;
     }
 
-    //update recipe *U*
+    /**
+     * Updates an existing review in the repository.
+     *
+     * @param updatedReview The updated review data.
+     * @param id            The ID of the review to be updated.
+     * @return The updated review.
+     */
     public Review updateReview(Review updatedReview, int id){
         Review curReview = repository.findById(id).orElseThrow();
 
@@ -48,12 +78,23 @@ public class ReviewService {
         return repository.save(curReview);
     }
 
-    //delete recipe *D*
+    /**
+     * Deletes a review from the repository.
+     *
+     * @param id The ID of the review to be deleted.
+     * @return The deleted review.
+     */
     public Review deleteReview(int id){
         repository.deleteById(id);
         return null;
     }
 
+    /**
+     * Checks if a review is valid (has stars within the range of 0 to 5).
+     *
+     * @param review The review to be validated.
+     * @return True if the review is valid, false otherwise.
+     */
     public boolean isValidReview(Review review){
         return review.getStars() >= 0 && review.getStars() <= 5;
     }

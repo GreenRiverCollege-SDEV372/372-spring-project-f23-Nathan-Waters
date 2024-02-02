@@ -11,6 +11,10 @@ import org.springframework.context.ApplicationContext;
 import java.util.ArrayList;
 import java.util.List;
 
+// Author: Nathan Waters
+// Date: 2/2/2024
+// version: 1
+
 @SpringBootApplication
 public class FoodApplication {
 
