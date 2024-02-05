@@ -99,16 +99,20 @@ public class RecipeService {
      * @return True if the recipe is valid, false otherwise.
      */
     public boolean isValidRecipe(Recipe recipe){
-        return recipe.getName() != null && !recipe.getName().isEmpty();
+        boolean hasName = recipe.getName() != null && !recipe.getName().isEmpty();
+        boolean hasAuthor = recipe.getAuthor() != null && !recipe.getAuthor().isEmpty();
+        boolean hasIng = recipe.getIngredients() != null &&  !recipe.getIngredients().isEmpty();
+        return !hasName || !hasAuthor || !hasIng;
     }
 
     /**
-     * Checks if an updated recipe is valid (has a non-null and non-empty author).
+     * Checks the validity of deleting an entity based on its ID.
      *
-     * @param recipe The updated recipe to be validated.
-     * @return True if the updated recipe is valid, false otherwise.
+     * @param id The ID of the entity to check for existence.
+     * @return {@code true} if the entity does not exist and can be deleted, {@code false} otherwise.
      */
-    public boolean isValidUpdatedRecipe(Recipe recipe){
-        return recipe.getAuthor() != null && !recipe.getAuthor().isEmpty();
+    public boolean isValidDelete(int id){
+        return !repository.existsById(id);
     }
+
 }

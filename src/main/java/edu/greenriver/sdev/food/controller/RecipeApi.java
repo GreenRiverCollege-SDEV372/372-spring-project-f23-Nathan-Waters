@@ -57,7 +57,7 @@ public class RecipeApi {
      */
     @PostMapping("recipes")
     public ResponseEntity<Recipe> addRecipe(@RequestBody Recipe newRecipe){
-        if(!service.isValidRecipe(newRecipe)){
+        if(service.isValidRecipe(newRecipe)){
             //no response body, status code 400
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -75,7 +75,7 @@ public class RecipeApi {
      */
     @PutMapping("recipes/{id}")
     public ResponseEntity<Recipe> updateRecipe(@PathVariable int id, @RequestBody Recipe updatedRecipe){
-        if(service.isValidUpdatedRecipe(updatedRecipe)){
+        if(service.isValidRecipe(updatedRecipe)){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(service.updateRecipe(updatedRecipe, id), HttpStatus.OK);
@@ -89,7 +89,9 @@ public class RecipeApi {
      */
     @DeleteMapping("recipes/{id}")
     public ResponseEntity<Recipe> deleteRecipe(@PathVariable int id){
-
-        return new ResponseEntity<>(service.deleteRecipe(id), HttpStatus.OK);
+        if(service.isValidDelete(id)){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(service.deleteRecipe(id), HttpStatus.ACCEPTED);
     }
 }
