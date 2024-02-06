@@ -1,3 +1,5 @@
+[RecipesCollection.postman_collection.json](https://github.com/GreenRiverCollege-SDEV372/372-spring-project-f23-Nathan-Waters/files/14146485/RecipesCollection.postman_collection.json)
+
 # Food Suggestion Guide
 
 <img src="src/main/resources/static/images/food-pic.jpg" alt="Image" width="300">
