@@ -96,6 +96,16 @@ public class ReviewService {
      * @return True if the review is valid, false otherwise.
      */
     public boolean isValidReview(Review review){
-        return review.getStars() >= 0 && review.getStars() <= 5;
+        return review.getStars() < 0 || review.getStars() > 5;
+    }
+
+    /**
+     * Checks the validity of deleting an entity based on its ID.
+     *
+     * @param id The ID of the entity to check for existence.
+     * @return {@code true} if the entity does not exist and can be deleted, {@code false} otherwise.
+     */
+    public boolean isValidDelete(int id){
+        return !repository.existsById(id);
     }
 }

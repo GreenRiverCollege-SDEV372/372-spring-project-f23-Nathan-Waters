@@ -58,8 +58,8 @@ public class ReviewApi {
      */
     @PostMapping("reviews")
     public ResponseEntity<Review> addReview(@RequestBody Review newReview){
-        if(!service.isValidReview(newReview)){
-            return new ResponseEntity<>(service.newReview(newReview), HttpStatus.BAD_REQUEST);
+        if(service.isValidReview(newReview)){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(service.newReview(newReview), HttpStatus.CREATED);
     }
@@ -74,6 +74,9 @@ public class ReviewApi {
      */
     @PutMapping("reviews/{id}")
     public ResponseEntity<Review> updateReview(@PathVariable int id, @RequestBody Review updatedReview){
+        if(service.isValidReview(updatedReview)){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(service.updateReview(updatedReview, id), HttpStatus.OK);
     }
 
@@ -85,6 +88,9 @@ public class ReviewApi {
      */
     @DeleteMapping("reviews/{id}")
     public ResponseEntity<Review> deleteReview(@PathVariable int id){
+        if(service.isValidDelete(id)){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(service.deleteReview(id), HttpStatus.OK);
     }
 }
