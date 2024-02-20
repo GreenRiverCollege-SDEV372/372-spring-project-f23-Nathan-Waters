@@ -32,11 +32,24 @@
         <label for="author">Author</label>
         <input id="author" type="text">
 
-        <label for="ingredients">ingredients</label>
-        <input id="ingredients" type="text">
+        <div id="ingredientsContainer">
+            <label for="ingredients">Ingredients</label>
+            <div id="ingredientsInputs">
 
-        <label for="method">steps</label>
-        <input id="method" type="text">
+                <input id="ingredients" type="text" name="ingredients[]" class="ingredient-input">
+            </div>
+            <button id="addIngredient" type="button">Add Ingredient</button>
+        </div>
+
+        <div id="methodContainer">
+            <label for="method">Steps</label>
+            <div id="methodInputs">
+                <input id="method" type="text" name="method[]" class="method-input">
+            </div>
+            <button id="addMethod" type="button">Add Method Step</button>
+        </div>
+
+        <button id="submit" type="submit">Add Recipe</button>
     </form>
 </body>
 </html>
