@@ -7,7 +7,7 @@
     <script th:src="@{js/data.js}"></script>
 </head>
 <body>
-<h1>Recipe List</h1>
+    <h1>Recipe List</h1>
     <table>
         <thead>
             <tr>
@@ -32,23 +32,21 @@
         <label for="author">Author</label>
         <input id="author" type="text">
 
-        <div id="ingredientsContainer">
-            <label for="ingredients">Ingredients</label>
-            <div id="ingredientsInputs">
-
-                <input id="ingredients" type="text" name="ingredients[]" class="ingredient-input">
-            </div>
-            <button id="addIngredient" type="button">Add Ingredient</button>
+        <label for="ingredients">Ingredients</label>
+        <div id="ingredientsInputs">
+            <input id="ingredients" type="text" name="ingredients[]" class="ingredient-input">
         </div>
+        <button id="addIngredient" type="button">Add Ingredient</button>
 
-        <div id="methodContainer">
-            <label for="method">Steps</label>
-            <div id="methodInputs">
-                <input id="method" type="text" name="method[]" class="method-input">
-            </div>
-            <button id="addMethod" type="button">Add Method Step</button>
+
+        <label for="method">Steps</label>
+        <div id="methodInputs">
+            <input id="method" type="text" name="method[]" class="method-input">
         </div>
+        <button id="addMethod" type="button">Add Method Step</button>
 
+        <br>
+        <br>
         <button id="submit" type="submit">Add Recipe</button>
     </form>
 </body>

@@ -17,6 +17,15 @@ window.onload = async function() {
     const addIngButton = document.querySelector("#addIngredient");
     addIngButton.onclick = addIngredient;
 
+    document.addEventListener('click', function(event) {
+        if (event.target.classList.contains('deleteBtn')) {
+            const btn = event.target;
+            const recipeId = btn.dataset.id;
+            deleteRecipe(recipeId);
+            // Remove the corresponding row from the table
+            btn.closest('tr').remove();
+        }
+    });
 }
 
 function makeTable(recipeData){
@@ -40,8 +49,6 @@ async function addRecipe(e){
         method: Array.from(document.querySelectorAll(".method-input")).map(input => input.value)
     }
 
-    console.log(newRecipe);
-
     const uri = "http://localhost:8080/recipes";
     const config = {
         method: "post",
@@ -56,6 +63,7 @@ async function addRecipe(e){
 
     const row = document.createElement('tr');
     const tBody = document.querySelector("#tbody");
+
     addRecipeToTable(row, recipe, tBody);
 }
 
@@ -71,9 +79,18 @@ function addRecipeToTable(row, recipeData, tBody){
             <td>${recipeData.ingredients}</td>
             <td>${recipeData.method}</td>
             <td>edit</td>
-            <td>delete</td>
+            <td><button class="deleteBtn" data-id="${recipeData.id}">Delete</button></td>
         `;
     tBody.appendChild(row);
+    // deleteRecipe(2);
+}
+
+async function deleteRecipe(recipeId){
+    const uri = `http://localhost:8080/recipes/${recipeId}`;
+    const config = {
+        method: "delete"
+    }
+    await fetch(uri, config);
 }
 
 function addIngredient() {
