@@ -68,21 +68,28 @@ async function addRecipe(e){
 }
 
 function addRecipeToTable(row, recipeData, tBody){
-    // let ingredientsListHTML = '<ul>';
-    // for (let i = 0; i < recipeData.ingredients.length; i++) {
-    //     ingredientsListHTML += `<li>${recipeData.ingredients[i]}</li>`;
-    // }
-    // ingredientsListHTML += '</ul>';
+    //creates ingredient lis
+    let ingredientsListHTML = '<ul>';
+    for (let i = 0; i < recipeData.ingredients.length; i++) {
+        ingredientsListHTML += `<li>${recipeData.ingredients[i]}</li>`;
+    }
+    ingredientsListHTML += '</ul>';
+
+    //creates method lis
+    let methodListHTML = '<ol>';
+    for (let i = 0; i < recipeData.method.length; i++) {
+        methodListHTML += `<li>${recipeData.method[i]}</li>`;
+    }
+    methodListHTML += '</ol>';
 
     row.innerHTML += `
             <td>${recipeData.name}</td>
-            <td>${recipeData.ingredients}</td>
-            <td>${recipeData.method}</td>
+            <td>${ingredientsListHTML}</td>
+            <td>${methodListHTML}</td>
             <td>edit</td>
             <td><button class="deleteBtn" data-id="${recipeData.id}">Delete</button></td>
         `;
     tBody.appendChild(row);
-    // deleteRecipe(2);
 }
 
 async function deleteRecipe(recipeId){
@@ -100,6 +107,8 @@ function addIngredient() {
     newInput.type = 'text';
     newInput.name = 'ingredients[]';
     newInput.className = 'ingredient-input';
+    newInput.placeholder = 'next ingredient...'
+    newInput.required = true;
 
     ingredientsInputs.appendChild(newInput);
 }
@@ -111,6 +120,8 @@ function addMethod() {
     newInput.type = 'text';
     newInput.name = 'method[]';
     newInput.className = 'method-input';
+    newInput.placeholder = 'next step...'
+    newInput.required = true;
 
     methodInputs.appendChild(newInput);
 }

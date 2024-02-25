@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{css/reset.css}" />
     <link rel="stylesheet" th:href="@{css/styles.css}" />
     <script th:src="@{js/data.js}"></script>
 </head>
@@ -22,32 +23,44 @@
         </tbody>
     </table>
 
-    <form id="subForm">
-        <label for="name">name</label>
-        <input id="name" type="text">
+    <div class="form-container">
+        <form id="subForm">
 
-        <label for="url">URL</label>
-        <input id="url" type="text">
+            <h3>Enter New Recipe Here:</h3>
+            <div class="form-labels">
+                <label for="name">Name</label>
+                <input id="name" type="text" required>
+            </div>
 
-        <label for="author">Author</label>
-        <input id="author" type="text">
+            <div class="form-labels">
+                <label for="url">URL</label>
+                <input id="url" type="text">
+            </div>
 
-        <label for="ingredients">Ingredients</label>
-        <div id="ingredientsInputs">
-            <input id="ingredients" type="text" name="ingredients[]" class="ingredient-input">
-        </div>
-        <button id="addIngredient" type="button">Add Ingredient</button>
+            <div class="form-labels">
+                <label for="author">Author</label>
+                <input id="author" type="text">
+            </div>
+
+            <div id="ingredientsInputs" class="form-labels">
+                <label for="ingredients">Ingredients</label>
+                <br>
+                <input id="ingredients" type="text" name="ingredients[]" class="ingredient-input" required>
+            </div>
+            <button id="addIngredient" type="button">Add Ingredient</button>
 
 
-        <label for="method">Steps</label>
-        <div id="methodInputs">
-            <input id="method" type="text" name="method[]" class="method-input">
-        </div>
-        <button id="addMethod" type="button">Add Method Step</button>
 
-        <br>
-        <br>
-        <button id="submit" type="submit">Add Recipe</button>
-    </form>
+            <div id="methodInputs" class="form-labels">
+                <label for="method">Steps</label>
+                <br>
+                <input id="method" type="text" name="method[]" class="method-input" required>
+            </div>
+            <button id="addMethod" type="button">Add Method Step</button>
+            <br>
+            <br>
+            <button id="submit" type="submit">Add Recipe</button>
+        </form>
+    </div>
 </body>
 </html>

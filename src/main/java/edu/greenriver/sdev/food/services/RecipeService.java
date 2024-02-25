@@ -101,8 +101,25 @@ public class RecipeService {
     public boolean isValidRecipe(Recipe recipe){
         boolean hasName = recipe.getName() != null && !recipe.getName().isEmpty();
         boolean hasAuthor = recipe.getAuthor() != null && !recipe.getAuthor().isEmpty();
-        boolean hasIng = recipe.getIngredients() != null &&  !recipe.getIngredients().isEmpty();
-        return !hasName || !hasAuthor || !hasIng;
+        boolean hasIng = recipe.getIngredients() != null && !recipe.getIngredients().isEmpty();
+        if(hasIng){
+            for(String str : recipe.getIngredients()){
+                if(str==null || str.trim().isEmpty()){
+                    hasIng = false;
+                    break;
+                }
+            }
+        }
+        boolean hasMeth = recipe.getMethod() != null && !recipe.getMethod().isEmpty();
+        if(hasMeth){
+            for(String str : recipe.getMethod()){
+                if(str==null || str.trim().isEmpty()){
+                    hasMeth = false;
+                    break;
+                }
+            }
+        }
+        return !hasName || !hasAuthor || !hasIng || !hasMeth;
     }
 
     /**
