@@ -1,22 +1,32 @@
-/*img{*/
-/*    width: 350px;*/
-/*}*/
+.container{
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-auto-columns: 1fr 1fr 1fr 1fr 1fr;
+}
 
-/** {*/
-/*    justify-content: center;*/
-/*    text-align: center;*/
-/*    background: lightblue;*/
-/*    list-style-type: none;*/
-/*}*/
+.item-1 {
+    grid-row: 1/2;
+    grid-column: 1/3;
+}
+
+.item-2 {
+    grid-row: 2/5;
+    grid-column: 1/5;
+}
+.item-3 {
+    grid-row: 1/2;
+    grid-column: 3/5;
+}
 
 body {
     justify-content: center;
     align-items: center;
-    width: 960px;
-    display: block;
-    background: lightblue;
-    padding-bottom: 100px;
-    margin: 50px auto auto;
+    width: 1000px;
+    background-color: #4CAF50; /* Fallback color */
+
+    /* Gradient syntax */
+    background-image: linear-gradient(to right, #4CAF50, #008CBA);
+    margin: 10px auto auto;
 }
 
 table {
@@ -51,8 +61,6 @@ th, td {
 
 .form-labels {
     padding: 8px;
-    /*width: 50%;*/
-    /*margin: auto;*/
 }
 
 .method-input, .ingredient-input {
@@ -63,4 +71,23 @@ th, td {
 td ol{
     list-style-type: decimal;
     padding-left: 20px;
+}
+
+.directions {
+    border: solid black 1px;
+    margin-left: 20px;
+    padding: 15px;
+    h1{
+        font-weight: bold;
+        font-size: large;
+    }
+}
+
+.directions-ul {
+    padding-left: 10px;
+    margin: 10px;
+}
+
+.directions-ul li {
+    padding: 8px;
 }
