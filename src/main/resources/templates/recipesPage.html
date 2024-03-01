@@ -8,18 +8,10 @@
     <script th:src="@{js/data.js}"></script>
 </head>
 <body class="container">
-    <div class="item item-1 directions">
-        <h1>Recipe List</h1>
-        <ul class="directions-ul">
-            <li>Enter the name of the recipe*</li>
-            <li>Enter a URL linking to a related resource</li>
-            <li>Enter the creator/author of the recipe*</li>
-            <li>Enter Ingredients required for the recipe*</li>
-            <li>Enter the step-by-step process for the recipe*</li>
-        </ul>
-
-        <p>* items are required</p>
+    <div class="item-1">
+        <h1>Welcome to My Recipe List!</h1>
     </div>
+
     <div class="item-2">
         <table class="item">
             <thead>
@@ -63,8 +55,6 @@
             </div>
             <button id="addIngredient" type="button">Add Ingredient</button>
 
-
-
             <div id="methodInputs" class="form-labels">
                 <label for="method">Steps</label>
                 <br>
@@ -76,5 +66,18 @@
             <button id="submit" type="submit">Add Recipe</button>
         </form>
     </div>
+
+    <div class="item item-4 directions">
+        <h1>Recipe List</h1>
+        <ul class="directions-ul">
+            <li>Enter the name of the recipe*</li>
+            <li>Enter a URL linking to a related resource</li>
+            <li>Enter the creator/author of the recipe</li>
+            <li>Enter Ingredients required for the recipe*</li>
+            <li>Enter the step-by-step process for the recipe*</li>
+        </ul>
+        <p>* items are required</p>
+    </div>
+
 </body>
 </html>
