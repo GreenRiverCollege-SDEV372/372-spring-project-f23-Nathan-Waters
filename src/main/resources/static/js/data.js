@@ -1,4 +1,3 @@
-
 window.onload = async function() {
     const uri = "http://localhost:8080/recipes/all";
     const config = {
@@ -30,43 +29,97 @@ window.onload = async function() {
             deleteRecipe(recipeId);
             // Remove the corresponding row from the table
             btn.closest('tr').remove();
+
         }
     });
 }
 
-function editRecord(e){
-
+async function editRecord(e) {
+    e.preventDefault();
     const editLink = e.target;
     const row = editLink.parentElement.parentElement;
-    const cells = row.children;
+    const recipeId = row.firstElementChild.attributes[0].value;
 
-    //name
-    const name = cells[0].innerHTML;
-    console.log(name);
+    console.log(row.children[1].innerHTML)
+    console.log(row.children[2].innerHTML)
 
-    //breaking ingredients into an array
-    const removeIngOl = cells[1].innerHTML.replace("<ul>", "").replace("</ul>", "");
-    const ingreArray = removeIngOl.replace(/<li>/g, "").split("</li>");
-    ingreArray.length = ingreArray.length-1;
-    console.log(ingreArray);
+    const name = row.querySelector('td:nth-child(1)').textContent.trim();
+    const ingredients = Array.from(row.querySelector('td:nth-child(2) ul').children).map(li => li.textContent);
+    const method = Array.from(row.querySelector('td:nth-child(3) ol').children).map(li => li.textContent);
 
-    //method steps split into an array
-    const removeMethOl = cells[2].innerHTML.replace("<ol>", "").replace("</ol>", "");
-    const methodArray = removeMethOl.replace(/<li>/g, "").split("</li>");
-    methodArray.length = methodArray.length-1;
-    console.log(methodArray);
+    console.log(ingredients);
 
-    const editButton = cells[3].innerHTML;
-    cells[3].innerHTML = `<button id="save" type="submit">Save</button`;
-    console.log(editButton);
+    row.querySelector('td:nth-child(1)').innerHTML = `<input type="text" id="name" value="${name}">`;
+    row.querySelector('td:nth-child(2)').innerHTML = ingredients.map(ingredient => `<input type="text" class="ingredient-input" value="${ingredient}">`).join('<br>');
+    row.querySelector('td:nth-child(3)').innerHTML = method.map(step => `<input type="text" class="method-input" value="${step}">`).join('<br>');
 
-    cells[0].innerHTML = `<input type="text" id="name" value="${name}">`;
+    const updateButton = row.querySelector('td:nth-child(4) button');
+    updateButton.textContent = 'Save';
+    updateButton.onclick = () => saveEdit(row, recipeId);
+
+    row.querySelector('td:nth-child(5) button').disabled = true;
 
 }
 
-function makeTable(recipeData){
+async function saveEdit(row, recipeId) {
+
+    const name = document.querySelector("#name").value;
+    const ingredients = Array.from(document.querySelectorAll(".ingredient-input")).map(input => input.value);
+    const method = Array.from(document.querySelectorAll(".method-input")).map(input => input.value);
+    method.length = method.length - 1;
+    ingredients.length = ingredients.length - 1;
+    console.log(method);
+    const updateRecipe = {
+        id: recipeId,
+        name: name,
+        ingredients: ingredients,
+        method: method
+    };
+
+    const uri = `http://localhost:8080/recipes/${recipeId}`;
+    const config = {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(updateRecipe)
+    };
+
+    try {
+        const response = await fetch(uri, config);
+        const updatedRecipe = await response.json();
+        // You might want to update the UI or handle success here
+    } catch (error) {
+        console.error('Error:', error);
+        // Handle errors appropriately
+    }
+
+
+    let cells = row.children;
+    console.log(cells[1].innerHTML);
+
+    let ingredientsListHTML = '<ul>';
+    for (let i = 0; i < ingredients.length; i++) {
+        ingredientsListHTML += `<li>${ingredients[i]}</li>`;
+    }
+    ingredientsListHTML += '</ul>';
+
+    //creates method lis
+    let methodListHTML = '<ol>';
+    for (let i = 0; i < method.length; i++) {
+        methodListHTML += `<li>${method[i]}</li>`;
+    }
+    methodListHTML += '</ol>';
+
+    cells[0].innerHTML = name;
+    cells[1].innerHTML = ingredientsListHTML;
+    cells[2].innerHTML = methodListHTML;
+    cells[3].innerHTML = '<button class="edit">Edit</button>';
+    cells[4].innerHTML = `<button class="deleteBtn" data-id="${recipeId}">Delete</button>`
+}
+
+function makeTable(recipeData) {
     const tBody = document.querySelector("#tbody");
-    // console.log(recipeData[0])
 
     for(let i = 0; i < recipeData.length; i++){
         const row = document.createElement('tr');
@@ -119,10 +172,10 @@ function addRecipeToTable(row, recipeData, tBody){
     methodListHTML += '</ol>';
 
     row.innerHTML += `
-            <td>${recipeData.name}</td>
+            <td id="${recipeData.id}">${recipeData.name}</td>
             <td>${ingredientsListHTML}</td>
             <td>${methodListHTML}</td>
-            <td><button class="edit">Edit</button></td>
+            <td><button class="edit" >Edit</button></td>
             <td><button class="deleteBtn" data-id="${recipeData.id}">Delete</button></td>
         `;
     tBody.appendChild(row);

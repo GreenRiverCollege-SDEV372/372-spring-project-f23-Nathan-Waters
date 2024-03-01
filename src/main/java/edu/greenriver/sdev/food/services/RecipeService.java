@@ -100,7 +100,6 @@ public class RecipeService {
      */
     public boolean isValidRecipe(Recipe recipe){
         boolean hasName = recipe.getName() != null && !recipe.getName().isEmpty();
-        boolean hasAuthor = recipe.getAuthor() != null && !recipe.getAuthor().isEmpty();
         boolean hasIng = recipe.getIngredients() != null && !recipe.getIngredients().isEmpty();
         if(hasIng){
             for(String str : recipe.getIngredients()){
@@ -119,7 +118,7 @@ public class RecipeService {
                 }
             }
         }
-        return !hasName || !hasAuthor || !hasIng || !hasMeth;
+        return !hasName || !hasIng || !hasMeth;
     }
 
     /**
