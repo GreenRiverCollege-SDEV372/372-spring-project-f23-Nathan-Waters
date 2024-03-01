@@ -1,3 +1,4 @@
+
 window.onload = async function() {
     const uri = "http://localhost:8080/recipes/all";
     const config = {
@@ -17,6 +18,11 @@ window.onload = async function() {
     const addIngButton = document.querySelector("#addIngredient");
     addIngButton.onclick = addIngredient;
 
+    const editLinks = document.querySelectorAll('.edit');
+    for (const link of editLinks) {
+        link.onclick = editRecord;
+    }
+
     document.addEventListener('click', function(event) {
         if (event.target.classList.contains('deleteBtn')) {
             const btn = event.target;
@@ -26,6 +32,36 @@ window.onload = async function() {
             btn.closest('tr').remove();
         }
     });
+}
+
+function editRecord(e){
+
+    const editLink = e.target;
+    const row = editLink.parentElement.parentElement;
+    const cells = row.children;
+
+    //name
+    const name = cells[0].innerHTML;
+    console.log(name);
+
+    //breaking ingredients into an array
+    const removeIngOl = cells[1].innerHTML.replace("<ul>", "").replace("</ul>", "");
+    const ingreArray = removeIngOl.replace(/<li>/g, "").split("</li>");
+    ingreArray.length = ingreArray.length-1;
+    console.log(ingreArray);
+
+    //method steps split into an array
+    const removeMethOl = cells[2].innerHTML.replace("<ol>", "").replace("</ol>", "");
+    const methodArray = removeMethOl.replace(/<li>/g, "").split("</li>");
+    methodArray.length = methodArray.length-1;
+    console.log(methodArray);
+
+    const editButton = cells[3].innerHTML;
+    cells[3].innerHTML = `<button id="save" type="submit">Save</button`;
+    console.log(editButton);
+
+    cells[0].innerHTML = `<input type="text" id="name" value="${name}">`;
+
 }
 
 function makeTable(recipeData){
@@ -86,7 +122,7 @@ function addRecipeToTable(row, recipeData, tBody){
             <td>${recipeData.name}</td>
             <td>${ingredientsListHTML}</td>
             <td>${methodListHTML}</td>
-            <td>edit</td>
+            <td><button class="edit">Edit</button></td>
             <td><button class="deleteBtn" data-id="${recipeData.id}">Delete</button></td>
         `;
     tBody.appendChild(row);
