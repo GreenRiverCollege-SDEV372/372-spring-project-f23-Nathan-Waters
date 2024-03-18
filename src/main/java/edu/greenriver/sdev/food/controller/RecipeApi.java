@@ -16,6 +16,7 @@ import java.util.List;
  * Controller class for handling recipe API requests.
  */
 @RestController
+@CrossOrigin(origins = "*")
 public class RecipeApi {
     private RecipeService service;
 

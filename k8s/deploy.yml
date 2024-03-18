@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: food-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      chapter: sdev372
+  template:
+    metadata:
+      labels:
+        chapter: sdev372
+    spec:
+      containers:
+        - name: food-container
+          image: nathanwaters94/food
+          ports:
+            - containerPort: 8080

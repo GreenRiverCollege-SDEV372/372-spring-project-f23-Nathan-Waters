@@ -1,8 +1,9 @@
 window.onload = async function() {
-    const uri = "http://localhost:8080/recipes/all";
+    const uri = `${window.location.origin}/recipes/all`;
     const config = {
         method: 'get'
     }
+        console.log(window.location.origin);
 
     const response = await fetch(uri, config);
     const data = await response.json();
@@ -76,7 +77,7 @@ async function saveEdit(row, recipeId) {
         method: method
     };
 
-    const uri = `http://localhost:8080/recipes/${recipeId}`;
+    const uri = `${window.location.origin}/recipes/${recipeId}`;
     const config = {
         method: "PUT",
         headers: {
@@ -138,7 +139,7 @@ async function addRecipe(e){
         method: Array.from(document.querySelectorAll(".method-input")).map(input => input.value)
     }
 
-    const uri = "http://localhost:8080/recipes";
+    const uri = `${window.location.origin}/recipes`;
     const config = {
         method: "post",
         headers: {
@@ -182,7 +183,7 @@ function addRecipeToTable(row, recipeData, tBody){
 }
 
 async function deleteRecipe(recipeId){
-    const uri = `http://localhost:8080/recipes/${recipeId}`;
+    const uri = `${window.location.origin}/recipes/${recipeId}`;
     const config = {
         method: "delete"
     }
